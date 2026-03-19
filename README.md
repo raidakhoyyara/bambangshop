@@ -77,6 +77,14 @@ This is the place for you to write reflections:
 ### Mandatory (Publisher) Reflections
 
 #### Reflection Publisher-1
+1. Di BambangShop, satu struct Model saja sudah cukup tanpa memerlukan interface untuk Subscriber. Ini karena semua subscriber memiliki struktur yang sama (url dan nama) dan diberi tahu dengan cara yang sama melalui request HTTP POST. Trait hanya diperlukan jika ada berbagai jenis subscriber yang membutuhkan implementasi yang berbeda.
+
+2. Menggunakan DashMap lebih diperlukan daripada Vec. Karena url di Subscriber harus unik, dengan DashMap kita bisa menggunakan url sebagai kunci(secara otomatis unik), memungkinkan pencarian dan penghapusan O(1).
+
+3. Kita masih membutuhkan DashMap meskipun sudah menerapkan pola Singleton.
+Singleton hanya memastikan satu instance ada, tetapi tidak menyediakan
+keamanan thread. Karena SUBSCRIBERS bisa diakses oleh beberapa thread bersamaan, kita membutuhkan DashMap yang dirancang agar aman untuk thread.
+Mengimplementasikan Singleton dengan HashMap biasa masih memerlukan sinkronisasi tambahan seperti Mutex atau RwLock.
 
 #### Reflection Publisher-2
 
