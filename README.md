@@ -87,5 +87,9 @@ keamanan thread. Karena SUBSCRIBERS bisa diakses oleh beberapa thread bersamaan,
 Mengimplementasikan Singleton dengan HashMap biasa masih memerlukan sinkronisasi tambahan seperti Mutex atau RwLock.
 
 #### Reflection Publisher-2
+1. Kita perlu memisahkan Service dan Repository dari Model karena prinsip Single Responsibility Principle (SRP). Model hanya merepresentasikan struktur data. Repository bertugas menangani penyimpanan dan pengambilan data, sedangkan Service menangani logika bisnis. Jika semua diletakkan dalam Model, satu kelas akan memiliki terlalu banyak tanggung jawab, sehingga sulit untuk dimaintanance, diuji, dan dimodifikasi.
 
+2. Jika kita hanya menggunakan Model tanpa Service dan Repository, setiap model harus menangani sendiri penyimpanan data dan logika bisnisnya. Contoh, model Notification harus berinteraksi langsung dengan model Subscriber dan Program. Hal ini akan menyebabkan tight coupling, di mana setiap perubahan pada satu model akan memengaruhi model lainnya. Kompleksitas kode juga akan meningkat secara signifikan karena setiap model harus mengetahui detail model lainnya.
+
+3. Postman membantu saya dalam menguji endpoint API tanpa memerlukan frontend. Saya dapat mengirim HTTP request (GET, POST, dan lainnya) dengan header dan body yang dapat disesuaikan, serta langsung melihat responsnya. Fitur yang saya anggap berguna antara lain Collections (untuk mengelompokkan request), Environment Variables (untuk mempermudah perpindahan antara URL localhost dan production), serta kemampuan menyimpan request untuk digunakan kembali. Hal ini sangat membantu dalam pengujian sistem notifikasi yang membutuhkan beberapa request berurutan.
 #### Reflection Publisher-3
